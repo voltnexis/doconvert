@@ -3,12 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocConvert by VoltNexis | Instant File Conversion</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>DoConvert by VoltNexis | Free Online File Converter - PDF, Images, Videos</title>
+    <meta name="title" content="DoConvert by VoltNexis | Free Online File Converter - PDF, Images, Videos">
+    <meta name="description" content="Convert files instantly in your browser. Free document converter for PDF, Word, Excel, PowerPoint, images (JPG, PNG, WEBP, SVG), videos, text, JSON, XML, CSV. No signup required.">
+    <meta name="keywords" content="file converter, online converter, free converter, PDF converter, image converter, video converter, document converter, word to pdf, excel to pdf, jpg to pdf, png to pdf, webp converter, svg to pdf, convert files online, browser converter">
+    <meta name="author" content="VoltNexis Digital">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="1 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://voltnexis.github.io/doconvert/">
+    <meta property="og:title" content="DoConvert by VoltNexis | Free Online File Converter">
+    <meta property="og:description" content="Convert files instantly in your browser. Free document, image, and video converter. No signup required. Supports PDF, Word, Excel, JPG, PNG, WEBP, SVG, MP4 and more.">
+    <meta property="og:image" content="https://voltnexis.github.io/doconvert/logo.png">
+    <meta property="og:site_name" content="DoConvert by VoltNexis">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://voltnexis.github.io/doconvert/">
+    <meta property="twitter:title" content="DoConvert by VoltNexis | Free Online File Converter">
+    <meta property="twitter:description" content="Convert files instantly in your browser. Free document, image, and video converter. No signup required.">
+    <meta property="twitter:image" content="https://voltnexis.github.io/doconvert/logo.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://voltnexis.github.io/doconvert/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Client-Side Conversion Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <!-- JSZip & FileSaver for batch downloads -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         
@@ -43,31 +78,29 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
         
-        .tooltip {
-            position: relative;
-            display: inline-block;
+        .tab-active {
+            border-bottom: 3px solid #3b82f6;
+            color: #3b82f6;
         }
         
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
+        .tab-content {
+            display: none;
         }
         
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
+        .tab-content.active {
+            display: block;
+        }
+        
+        .drop-active {
+            border-color: #22c55e !important;
+            background: rgba(34,197,94,0.06) !important;
+        }
+        
+        .thumb {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 0.75rem;
         }
     </style>
 </head>
@@ -77,7 +110,7 @@
         <div class="container mx-auto px-4 py-6 flex justify-between items-center">
             <div class="flex items-center">
                 <i class="fas fa-file-alt text-blue-500 text-3xl mr-3"></i>
-                <h1 class="text-2xl font-bold text-blue-600">DocConvert by VoltNexis<span class="text-blue-400">Pro</span></h1>
+                <h1 class="text-2xl font-bold text-blue-600">DoConvert</h1>
             </div>
             <nav class="hidden md:flex space-x-8">
                 <a href="#" class="text-blue-600 font-medium hover:text-blue-800">Home</a>
@@ -92,76 +125,238 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="py-16 md:py-24">
+    <section class="py-12 md:py-16">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Convert Files in Seconds</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-10">
-                No signup required. Convert between PDF, Word, Excel, PowerPoint, images and more - completely free!
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Convert Files in Seconds</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+                Convert documents, images, and videos - completely free! No signup required.
             </p>
             
-            <!-- Conversion Box -->
-            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-                <div class="p-6">
+            <!-- Conversion Type Tabs -->
+            <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+                <!-- Tab Navigation -->
+                <div class="flex border-b border-gray-200">
+                    <button class="tab-btn flex-1 py-4 px-6 text-center font-medium tab-active" data-tab="documents">
+                        <i class="fas fa-file-alt mr-2"></i>Documents
+                    </button>
+                    <button class="tab-btn flex-1 py-4 px-6 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="images">
+                        <i class="fas fa-image mr-2"></i>Images
+                    </button>
+                    <button class="tab-btn flex-1 py-4 px-6 text-center font-medium text-gray-500 hover:text-gray-700" data-tab="videos">
+                        <i class="fas fa-video mr-2"></i>Videos
+                    </button>
+                </div>
+                
+                <!-- Documents Tab Content -->
+                <div id="documents" class="tab-content active p-6">
                     <div class="flex flex-col md:flex-row justify-center items-center mb-6">
                         <div class="w-full md:w-1/3">
-                            <select id="to-format" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                            <select id="doc-to-format" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Select output format</option>
-                                <option value="pdf">PDF (.pdf)</option>
-                                <option value="docx">Word (.docx)</option>
-                                <option value="xlsx">Excel (.xlsx)</option>
-                                <option value="pptx">PowerPoint (.pptx)</option>
-                                <option value="jpg">JPG Image (.jpg)</option>
-                                <option value="png">PNG Image (.png)</option>
-                                <option value="txt">Text (.txt)</option>
-                                <option value="html">HTML (.html)</option>
-                                <option value="epub">EPUB (.epub)</option>
+                                <optgroup label="Images">
+                                    <option value="pdf">PDF (.pdf)</option>
+                                    <option value="jpg">JPG Image (.jpg)</option>
+                                    <option value="png">PNG Image (.png)</option>
+                                    <option value="webp">WebP (.webp)</option>
+                                </optgroup>
+                                <optgroup label="Documents">
+                                    <option value="txt">Text (.txt)</option>
+                                    <option value="html">HTML (.html)</option>
+                                </optgroup>
+                                <optgroup label="Coming Soon">
+                                    <option value="docx" disabled>Word (.docx) - Server required</option>
+                                    <option value="xlsx" disabled>Excel (.xlsx) - Server required</option>
+                                    <option value="pptx" disabled>PowerPoint (.pptx) - Server required</option>
+                                    <option value="epub" disabled>EPUB (.epub) - Server required</option>
+                                </optgroup>
                             </select>
                         </div>
                     </div>
                     
-                    <!-- File Drop Area -->
-                    <div id="drop-area" class="file-drop-area rounded-lg p-10 text-center cursor-pointer mb-6">
+                    <div id="doc-drop-area" class="file-drop-area rounded-lg p-10 text-center cursor-pointer mb-6">
                         <i class="fas fa-cloud-upload-alt text-4xl text-blue-400 mb-4"></i>
-                        <h3 class="text-xl font-semibold mb-2">Drag & Drop your files here</h3>
-                        <p class="text-gray-500 mb-4">or</p>
-                        <button id="browse-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
+                        <h3 class="text-xl font-semibold mb-2">Drag & Drop files here</h3>
+                        <p class="text-gray-500 mb-4">PDF, Images (JPG/PNG/WEBP/SVG), Text, HTML, JSON, XML, CSV</p>
+                        <button id="doc-browse-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-6 rounded-lg transition duration-300">
                             Browse Files
                         </button>
-                        <input type="file" id="fileElem" class="hidden" multiple>
+                        <input type="file" id="doc-fileElem" class="hidden" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.html,.htm,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg,.json,.xml,.csv,.epub">
                     </div>
                     
-                    <!-- Conversion Progress/Result -->
-                    <div id="result-area" class="mt-6 text-center hidden">
-                        <p id="status-text" class="text-gray-600 mb-4 font-medium" aria-live="polite"></p>
-                        <div id="progress-bar-container" class="w-full bg-gray-200 rounded-full h-2.5 mb-4 hidden">
-                            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="doc-result-area" class="mt-6 text-center hidden">
+                        <p id="doc-status-text" class="text-gray-600 mb-4 font-medium"></p>
+                        <div id="doc-progress-bar-container" class="w-full bg-gray-200 rounded-full h-2.5 mb-4 hidden">
+                            <div id="doc-progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style="width: 0%"></div>
                         </div>
-                        <div id="download-section" class="flex justify-center"></div>
-                        <button id="reset-btn" class="mt-4 bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-lg transition duration-300 hidden">
+                        <div id="doc-download-section" class="flex justify-center"></div>
+                        <button id="doc-reset-btn" class="mt-4 bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-6 rounded-lg transition duration-300 hidden">
                             Convert Another File
                         </button>
                     </div>
                     
-                    <div id="features-pills" class="flex flex-wrap justify-center gap-4">
-                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center">
-                            <i class="fas fa-lock mr-2"></i>
-                            <span>Secure Conversion</span>
+                    <div id="doc-convert-button-container" class="p-6 pt-0 text-center hidden">
+                        <button id="doc-convert-btn" class="w-full md:w-1/2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-lg text-lg">
+                            <i class="fas fa-cogs mr-2"></i> Convert Now
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Images Tab Content -->
+                <div id="images" class="tab-content p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Image Upload -->
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                            <h3 class="font-semibold text-lg mb-3">1) Add Image Files</h3>
+                            <div id="img-dropzone" class="mt-3 rounded-xl border-2 border-dashed border-gray-300 bg-white p-6 flex flex-col items-center justify-center text-center transition">
+                                <div class="text-sm text-gray-600">Drag & drop images here</div>
+                                <div class="text-xs text-gray-500 mt-1">or</div>
+                                <label class="mt-3 inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-white cursor-pointer hover:bg-blue-700">
+                                    <input id="img-fileInput" type="file" accept="image/*" multiple class="hidden" />
+                                    <span>Select images</span>
+                                </label>
+                                <p class="text-xs text-gray-500 mt-2">PNG, JPG, WEBP, AVIF, GIF, BMP, SVG</p>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <div id="img-status" class="text-sm text-gray-600"></div>
+                                <button id="img-clearAll" class="text-sm rounded-xl border px-3 py-1.5 hover:bg-gray-50">Clear All</button>
+                            </div>
+                            <ul id="img-fileList" class="mt-4 grid grid-cols-1 gap-3 max-h-64 overflow-y-auto"></ul>
                         </div>
-                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center">
+                        
+                        <!-- Image Settings -->
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                            <h3 class="font-semibold text-lg mb-3">2) Convert Settings</h3>
+                            <div class="grid gap-4">
+                                <div class="grid grid-cols-[100px_1fr] items-center gap-3">
+                                    <label class="text-sm text-gray-600">Output</label>
+                                    <select id="img-format" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm">
+                                        <option value="image/webp">WEBP (.webp)</option>
+                                        <option value="image/avif">AVIF (.avif)</option>
+                                        <option value="image/jpeg">JPEG (.jpg)</option>
+                                        <option value="image/png">PNG (.png)</option>
+                                        <option value="image/gif">GIF (.gif)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="grid grid-cols-[100px_1fr] items-center gap-3">
+                                    <label class="text-sm text-gray-600">Quality</label>
+                                    <div class="flex items-center gap-3">
+                                        <input id="img-quality" type="range" min="1" max="100" value="82" class="w-full" />
+                                        <span id="img-qval" class="w-10 text-right text-sm">82</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid grid-cols-[100px_1fr] items-start gap-3">
+                                    <span class="text-sm text-gray-600">Resize</span>
+                                    <div class="flex flex-wrap items-center gap-2">
+                                        <input id="img-resizeW" type="number" min="1" placeholder="width" class="w-24 rounded-xl border border-gray-300 px-3 py-2 text-sm" />
+                                        <span class="text-gray-500">×</span>
+                                        <input id="img-resizeH" type="number" min="1" placeholder="height" class="w-24 rounded-xl border border-gray-300 px-3 py-2 text-sm" />
+                                        <label class="inline-flex items-center gap-1 text-xs text-gray-700">
+                                            <input id="img-lockAR" type="checkbox" class="rounded" checked /> Keep ratio
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <button id="img-convertBtn" class="mt-2 inline-flex items-center justify-center rounded-xl bg-emerald-600 px-4 py-2 text-white font-medium hover:bg-emerald-500 disabled:opacity-50">
+                                    <i class="fas fa-exchange-alt mr-2"></i> Convert Images
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Image Results -->
+                    <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg">3) Results</h3>
+                            <button id="img-downloadAll" class="hidden rounded-xl bg-blue-600 text-white px-3 py-2 text-sm font-medium hover:bg-blue-700">Download All (ZIP)</button>
+                        </div>
+                        <div id="img-results" class="grid gap-4 md:grid-cols-2"></div>
+                    </div>
+                </div>
+                
+                <!-- Videos Tab Content -->
+                <div id="videos" class="tab-content p-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Video Upload -->
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                            <h3 class="font-semibold text-lg mb-3">1) Add Video Files</h3>
+                            <div id="vid-dropzone" class="mt-3 rounded-xl border-2 border-dashed border-gray-300 bg-white p-6 flex flex-col items-center justify-center text-center transition">
+                                <div class="text-sm text-gray-600">Drag & drop videos here</div>
+                                <div class="text-xs text-gray-500 mt-1">or</div>
+                                <label class="mt-3 inline-flex items-center gap-2 rounded-xl bg-purple-600 px-4 py-2 text-white cursor-pointer hover:bg-purple-700">
+                                    <input id="vid-fileInput" type="file" accept="video/*" multiple class="hidden" />
+                                    <span>Select videos</span>
+                                </label>
+                                <p class="text-xs text-gray-500 mt-2">MP4, WEBM, AVI, MOV, MKV, WMV</p>
+                            </div>
+                            <div class="mt-3 flex items-center justify-between">
+                                <div id="vid-status" class="text-sm text-gray-600"></div>
+                                <button id="vid-clearAll" class="text-sm rounded-xl border px-3 py-1.5 hover:bg-gray-50">Clear All</button>
+                            </div>
+                            <ul id="vid-fileList" class="mt-4 grid grid-cols-1 gap-3 max-h-64 overflow-y-auto"></ul>
+                        </div>
+                        
+                        <!-- Video Settings -->
+                        <div class="rounded-xl border border-gray-200 bg-gray-50 p-5">
+                            <h3 class="font-semibold text-lg mb-3">2) Convert Settings</h3>
+                            <div class="grid gap-4">
+                                <div class="grid grid-cols-[100px_1fr] items-center gap-3">
+                                    <label class="text-sm text-gray-600">Output</label>
+                                    <select id="vid-format" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm">
+                                        <option value="video/mp4">MP4 (.mp4)</option>
+                                        <option value="video/webm">WEBM (.webm)</option>
+                                        <option value="video/avi">AVI (.avi)</option>
+                                        <option value="video/mov">MOV (.mov)</option>
+                                        <option value="video/mkv">MKV (.mkv)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="grid grid-cols-[100px_1fr] items-center gap-3">
+                                    <label class="text-sm text-gray-600">Quality</label>
+                                    <div class="flex items-center gap-3">
+                                        <input id="vid-quality" type="range" min="0.1" max="1" step="0.1" value="0.8" class="w-full" />
+                                        <span id="vid-qval" class="w-10 text-right text-sm">0.8</span>
+                                    </div>
+                                </div>
+                                
+                                <button id="vid-convertBtn" class="mt-2 inline-flex items-center justify-center rounded-xl bg-purple-600 px-4 py-2 text-white font-medium hover:bg-purple-500 disabled:opacity-50">
+                                    <i class="fas fa-exchange-alt mr-2"></i> Convert Videos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Video Results -->
+                    <div class="mt-6 rounded-xl border border-gray-200 bg-gray-50 p-5">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="font-semibold text-lg">3) Results</h3>
+                            <button id="vid-downloadAll" class="hidden rounded-xl bg-purple-600 text-white px-3 py-2 text-sm font-medium hover:bg-purple-700">Download All (ZIP)</button>
+                        </div>
+                        <div id="vid-results" class="grid gap-4 md:grid-cols-2"></div>
+                    </div>
+                </div>
+                
+                <!-- Features Pills -->
+                <div class="p-4 border-t border-gray-200 bg-gray-50">
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center text-sm">
+                            <i class="fas fa-lock mr-2"></i>
+                            <span>Secure & Private</span>
+                        </div>
+                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center text-sm">
                             <i class="fas fa-bolt mr-2"></i>
                             <span>Fast Processing</span>
                         </div>
-                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center">
+                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center text-sm">
                             <i class="fas fa-infinity mr-2"></i>
                             <span>Unlimited Conversions</span>
                         </div>
+                        <div class="bg-blue-50 text-blue-700 px-4 py-2 rounded-full flex items-center text-sm">
+                            <i class="fas fa-globe mr-2"></i>
+                            <span>100% Browser-Based</span>
+                        </div>
                     </div>
-                </div>
-                <!-- Convert Button (part of main conversion box, but controlled by JS) -->
-                <div id="convert-button-container" class="p-6 pt-0 text-center hidden">
-                    <button id="convert-btn" class="w-full md:w-1/2 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-lg text-lg">
-                        <i class="fas fa-cogs mr-2"></i> Convert Now
-                    </button>
                 </div>
             </div>
         </div>
@@ -293,7 +488,7 @@
     <!-- Features Section -->
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12">Why Choose DocConvert Pro?</h2>
+            <h2 class="text-3xl font-bold text-center mb-12">Why Choose DoConvert?</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="text-center p-6">
@@ -346,57 +541,12 @@
                             </td>
                             <td class="py-4 px-4">
                                 <div class="flex flex-wrap gap-2">
-                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">Word (.docx)</span>
-                                    <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">Excel (.xlsx)</span>
-                                    <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">PowerPoint (.pptx)</span>
                                     <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">JPG (.jpg)</span>
-                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Text (.txt)</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-file-word text-blue-500 mr-2"></i>
-                                    <span>Word (.docx, .doc)</span>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                    <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm">PNG (.png)</span>
+                                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">WebP (.webp)</span>
                                     <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">Text (.txt)</span>
                                     <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">HTML (.html)</span>
-                                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">EPUB (.epub)</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-file-excel text-green-500 mr-2"></i>
-                                    <span>Excel (.xlsx, .xls)</span>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
-                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">Word (.docx)</span>
-                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">CSV (.csv)</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="py-4 px-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-file-powerpoint text-orange-500 mr-2"></i>
-                                    <span>PowerPoint (.pptx, .ppt)</span>
-                                </div>
-                            </td>
-                            <td class="py-4 px-4">
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
-                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">JPG (.jpg)</span>
-                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">Word (.docx)</span>
+                                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm" title="Coming Soon">Word (.docx) 🔜</span>
                                 </div>
                             </td>
                         </tr>
@@ -404,15 +554,103 @@
                             <td class="py-4 px-4">
                                 <div class="flex items-center">
                                     <i class="fas fa-file-image text-yellow-500 mr-2"></i>
-                                    <span>Images (.jpg, .png, .gif)</span>
+                                    <span>Images (JPG, PNG, WEBP, SVG, GIF, BMP)</span>
                                 </div>
                             </td>
                             <td class="py-4 px-4">
                                 <div class="flex flex-wrap gap-2">
                                     <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
                                     <span class="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm">PNG (.png)</span>
-                                    <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">WebP (.webp)</span>
+                                    <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm">JPG (.jpg)</span>
+                                    <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm">WebP (.webp)</span>
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-alt text-gray-500 mr-2"></i>
+                                    <span>Text (.txt)</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-code text-purple-500 mr-2"></i>
+                                    <span>HTML (.html)</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-code text-green-500 mr-2"></i>
+                                    <span>JSON (.json)</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-code text-orange-500 mr-2"></i>
+                                    <span>XML (.xml)</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-csv text-green-500 mr-2"></i>
+                                    <span>CSV (.csv)</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">PDF (.pdf)</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-word text-blue-500 mr-2"></i>
+                                    <span>Word (.docx) 🔜</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-gray-400 text-sm">Coming Soon - Requires Server</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-file-excel text-green-500 mr-2"></i>
+                                    <span>Excel (.xlsx) 🔜</span>
+                                </div>
+                            </td>
+                            <td class="py-4 px-4">
+                                <span class="text-gray-400 text-sm">Coming Soon - Requires Server</span>
                             </td>
                         </tr>
                     </tbody>
@@ -430,12 +668,12 @@
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <button class="faq-question w-full text-left p-5 focus:outline-none">
                         <div class="flex justify-between items-center">
-                            <h3 class="font-medium text-lg">Is DocConvert Pro really free to use?</h3>
+                            <h3 class="font-medium text-lg">Is DoConvert Pro really free to use?</h3>
                             <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
                         </div>
                     </button>
                     <div class="faq-answer px-5 pb-5 hidden">
-                        <p class="text-gray-600">Yes! DocConvert Pro is completely free to use with no hidden charges. You can convert as many files as you need without any limitations.</p>
+                        <p class="text-gray-600">Yes! DoConvert Pro is completely free to use with no hidden charges. You can convert as many files as you need without any limitations.</p>
                     </div>
                 </div>
                 
@@ -471,7 +709,7 @@
                         </div>
                     </button>
                     <div class="faq-answer px-5 pb-5 hidden">
-                        <p class="text-gray-600">No account is required! DocConvert Pro works completely anonymously. Just upload your file, select the output format, and download your converted document.</p>
+                        <p class="text-gray-600">No account is required! DoConvert Pro works completely anonymously. Just upload your file, select the output format, and download your converted document.</p>
                     </div>
                 </div>
                 
@@ -508,9 +746,9 @@
                 <div>
                     <div class="flex items-center mb-4">
                         <i class="fas fa-file-alt text-blue-400 text-2xl mr-3"></i>
-                        <h3 class="text-xl font-bold">DocConvert Pro</h3>
+                        <h3 class="text-xl font-bold">DoConvert Pro</h3>
                     </div>
-                    <p class="text-gray-400">The fastest, most secure way to convert your documents online. No registration required.</p>
+                    <p class="text-gray-400">The fastest, most secure way to convert your documents online. No registration required. Powered By VoltNexis Digital</p>
                 </div>
                 
                 <div>
@@ -540,279 +778,17 @@
                         <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="text-gray-400 hover:text-white text-xl"><i class="fab fa-linkedin"></i></a>
                     </div>
-                    <p class="text-gray-400 mt-4">support@docconvertpro.com</p>
+                    <p class="text-gray-400 mt-4">support@voltnexis.com</p>
+                    <p class="text-gray-400 mt-4">doconvert@voltnexis.com</p>
                 </div>
             </div>
             
             <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
-                <p>&copy; 2023 DocConvert Pro. All rights reserved.</p>
+                <p>&copy; 2023 DoConvert Pro. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <script>
-        // DOM Elements
-        const dropArea = document.getElementById('drop-area');
-        const fileInput = document.getElementById('fileElem');
-        const browseBtn = document.getElementById('browse-btn');
-        const toFormatSelect = document.getElementById('to-format');
-        const dropText = dropArea.querySelector('h3');
-        const resultArea = document.getElementById('result-area');
-        const statusText = document.getElementById('status-text');
-        const progressBar = document.getElementById('progress-bar');
-        const progressBarContainer = document.getElementById('progress-bar-container');
-        const downloadSection = document.getElementById('download-section');
-        const convertBtn = document.getElementById('convert-btn');
-        const convertButtonContainer = document.getElementById('convert-button-container');
-        const resetBtn = document.getElementById('reset-btn');
-        const featuresPills = document.getElementById('features-pills');
-
-        let selectedFiles = [];
-        let detectedFormat = '';
-
-        // --- Helper Functions ---
-        function getFileFormat(filename) {
-            const ext = filename.split('.').pop().toLowerCase();
-            const formats = {
-                'pdf': 'pdf',
-                'docx': 'docx',
-                'doc': 'docx',
-                'xlsx': 'xlsx',
-                'xls': 'xlsx',
-                'pptx': 'pptx',
-                'ppt': 'pptx',
-                'jpg': 'jpg',
-                'jpeg': 'jpg',
-                'png': 'png',
-                'txt': 'txt',
-                'html': 'html',
-                'epub': 'epub'
-            };
-            return formats[ext] || null;
-        }
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        function highlight() { dropArea.classList.add('active'); }
-        function unhighlight() { dropArea.classList.remove('active'); }
-
-        function updateStatus(message, showProgress = false, progress = 0) {
-            statusText.textContent = message;
-            progressBarContainer.style.display = showProgress ? 'block' : 'none';
-            progressBar.style.width = `${progress}%`;
-        }
-
-        function showDownloadLink(blob, filename) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.className = 'bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition duration-300 shadow-lg';
-            a.innerHTML = `<i class="fas fa-download mr-2"></i> Download ${filename}`;
-            downloadSection.innerHTML = '';
-            downloadSection.appendChild(a);
-            resetBtn.style.display = 'inline-block';
-        }
-
-        function resetUI() {
-            fileInput.value = '';
-            selectedFiles = [];
-            detectedFormat = '';
-            toFormatSelect.value = '';
-            dropText.textContent = 'Drag & Drop your files here';
-            dropArea.style.display = 'block';
-            featuresPills.style.display = 'flex';
-            convertButtonContainer.style.display = 'none';
-            resultArea.style.display = 'none';
-            resetBtn.style.display = 'none';
-        }
-
-        // --- Core Conversion Logic ---
-        async function convertAndDownload() {
-            if (selectedFiles.length === 0) {
-                updateStatus('Please select a file first.');
-                return;
-            }
-
-            const toFormat = toFormatSelect.value;
-
-            if (!detectedFormat) {
-                updateStatus('Unsupported file format detected.');
-                return;
-            }
-
-            if (!toFormat) {
-                updateStatus('Please select an output format.');
-                return;
-            }
-
-            const file = selectedFiles[0];
-            const outputFilename = `${file.name.split('.').slice(0, -1).join('.')}.${toFormat}`;
-
-            convertButtonContainer.style.display = 'none';
-            resultArea.style.display = 'block';
-            updateStatus('Preparing conversion...', true, 10);
-
-            try {
-                // Set PDF.js worker source
-                window['pdfjs-dist/build/pdf'].GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js`;
-                const { jsPDF } = window.jspdf;
-
-                if ((detectedFormat === 'jpg' || detectedFormat === 'png') && toFormat === 'pdf') {
-                    updateStatus('Converting Image to PDF...', true, 50);
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const imgData = e.target.result;
-                        const pdf = new jsPDF();
-                        const imgProps = pdf.getImageProperties(imgData);
-                        const pdfWidth = pdf.internal.pageSize.getWidth();
-                        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                        pdf.addImage(imgData, detectedFormat.toUpperCase(), 0, 0, pdfWidth, pdfHeight);
-                        const blob = pdf.output('blob');
-                        updateStatus('Conversion Complete!', true, 100);
-                        showDownloadLink(blob, outputFilename);
-                    };
-                    reader.readAsDataURL(file);
-                } else if ((detectedFormat === 'jpg' || detectedFormat === 'png') && (toFormat === 'jpg' || toFormat === 'png')) {
-                    updateStatus(`Converting ${detectedFormat.toUpperCase()} to ${toFormat.toUpperCase()}...`, true, 50);
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const img = new Image();
-                        img.onload = () => {
-                            const canvas = document.createElement('canvas');
-                            canvas.width = img.width;
-                            canvas.height = img.height;
-                            const ctx = canvas.getContext('2d');
-                            // Fill background with white for JPG conversion from transparent PNG
-                            if (toFormat === 'jpg') {
-                                ctx.fillStyle = '#FFFFFF';
-                                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                            }
-                            ctx.drawImage(img, 0, 0);
-                            const mimeType = `image/${toFormat === 'jpg' ? 'jpeg' : 'png'}`;
-                            canvas.toBlob(blob => {
-                                updateStatus('Conversion Complete!', true, 100);
-                                showDownloadLink(blob, outputFilename);
-                            }, mimeType, 0.95); // 0.95 quality for JPG
-                        };
-                        img.src = e.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                } else if (detectedFormat === 'pdf' && toFormat === 'jpg') {
-                    updateStatus('Converting PDF to JPG (first page)...', true, 50);
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await window['pdfjs-dist/build/pdf'].getDocument({ data: arrayBuffer }).promise;
-                    const page = await pdf.getPage(1);
-                    const viewport = page.getViewport({ scale: 2.0 });
-                    const canvas = document.createElement('canvas');
-                    const context = canvas.getContext('2d');
-                    canvas.height = viewport.height;
-                    canvas.width = viewport.width;
-                    await page.render({ canvasContext: context, viewport: viewport }).promise;
-                    canvas.toBlob(blob => {
-                        updateStatus('Conversion Complete!', true, 100);
-                        showDownloadLink(blob, outputFilename);
-                    }, 'image/jpeg', 0.95);
-                } else if (detectedFormat === 'txt' && toFormat === 'pdf') {
-                    updateStatus('Converting Text to PDF...', true, 50);
-                    const text = await file.text();
-                    const pdf = new jsPDF();
-                    const lines = pdf.splitTextToSize(text, 180);
-                    pdf.text(lines, 10, 10);
-                    const blob = pdf.output('blob');
-                    updateStatus('Conversion Complete!', true, 100);
-                    showDownloadLink(blob, outputFilename);
-                } else {
-                    throw new Error(`Conversion from ${detectedFormat.toUpperCase()} to ${toFormat.toUpperCase()} is not supported yet.`);
-                }
-            } catch (error) {
-                console.error('Conversion failed:', error);
-                updateStatus(`Error: ${error.message}`);
-                resetBtn.style.display = 'inline-block';
-            }
-        }
-
-        // --- Event Handlers ---
-        function handleFiles(files) {
-            if (files.length === 0) return;
-            selectedFiles = Array.from(files);
-            const firstFile = selectedFiles[0];
-            detectedFormat = getFileFormat(firstFile.name);
-
-            if (!detectedFormat) {
-                updateStatus('Unsupported file format detected.');
-                return;
-            }
-
-            dropText.textContent = `${selectedFiles.length} file(s) selected: ${firstFile.name} (${detectedFormat.toUpperCase()})`;
-            
-            dropArea.style.display = 'none';
-            featuresPills.style.display = 'none';
-            convertButtonContainer.style.display = 'block';
-            resultArea.style.display = 'block';
-            statusText.textContent = 'File ready. Select output format and click Convert.';
-            progressBarContainer.style.display = 'none';
-            downloadSection.innerHTML = '';
-            resetBtn.style.display = 'none';
-        }
-
-        // --- Event Listeners ---
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, preventDefaults, false);
-        });
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropArea.addEventListener(eventName, highlight, false);
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropArea.addEventListener(eventName, unhighlight, false);
-        });
-
-        dropArea.addEventListener('drop', handleDrop, false);
-
-        function handleDrop(e) {
-            const dt = e.dataTransfer;
-            handleFiles(dt.files);
-        }
-
-        browseBtn.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', () => handleFiles(fileInput.files));
-
-        // Popular conversion buttons
-        document.querySelectorAll('.convert-popular').forEach(button => {
-            button.addEventListener('click', function() {
-                const toFormat = this.dataset.to;
-                resetUI();
-                toFormatSelect.value = toFormat;
-                document.getElementById('drop-area').scrollIntoView({ behavior: 'smooth' });
-                setTimeout(() => fileInput.click(), 300); // Open file dialog after scroll
-            });
-        });
-
-        // CTA button
-        document.getElementById('cta-btn').addEventListener('click', () => {
-            document.getElementById('drop-area').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // FAQ accordion functionality
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const answer = button.nextElementSibling;
-                const icon = button.querySelector('i');
-
-                answer.classList.toggle('hidden');
-                icon.classList.toggle('transform');
-                icon.classList.toggle('rotate-180');
-            });
-        });
-
-        // Main conversion and reset buttons
-        convertBtn.addEventListener('click', convertAndDownload);
-        resetBtn.addEventListener('click', resetUI);
-    </script>
+    <script src="script.js"> </script>
 </body>
 </html>
